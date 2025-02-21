@@ -1,6 +1,7 @@
 import axios from 'axios';
-// import iziToast from 'izitoast';
-// import 'izitoast/dist/css/iziToast.min.css';
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
+
 const API_KEY = '48882544-91bb6160508b612126ca5843a';
 const BASE_URL = 'https://pixabay.com/api/';
 
@@ -15,11 +16,15 @@ export function getImages(search) {
         safesearch: true,
       },
     })
-    .then(response => {
-      return response.data.hits;
-    })
+    .then(response => response.data.hits)
     .catch(error => {
       console.log(error);
+      iziToast.error({
+        title: 'Error',
+        message: 'Something went wrong. Please try again later!',
+        position: 'topRight',
+      });
+      return [];
     });
 }
 
